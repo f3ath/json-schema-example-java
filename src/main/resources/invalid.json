@@ -1,0 +1,8 @@
+{
+  "intent": "CAPTURE",
+  "purchase_units": [
+    {
+      "amount": "12"
+    }
+  ]
+}

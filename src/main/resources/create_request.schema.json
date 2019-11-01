@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "amount_with_breakdown": {
+      "type": "object",
+      "properties": {
+        "currency_code": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^((-?[0-9]+)|(-?([0-9]+)?[.][0-9]+))$"
+        }
+      }
+    },
+    "purchase_unit": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/amount_with_breakdown"
+        }
+      }
+    }
+  },
+  "$id": "https://developer.paypal.com/docs/api/orders/v2/create_request.schema.json",
+  "title": "Order create request",
+  "description": "See https://developer.paypal.com/docs/api/orders/v2/#orders_create",
+  "type": "object",
+  "properties": {
+    "intent": {
+      "description": "The intent to either capture payment immediately or authorize a payment for an order after order creation.",
+      "type": "string",
+      "enum": [
+        "CAPTURE",
+        "AUTHORIZE"
+      ]
+    },
+    "purchase_units": {
+      "description": "An array of purchase units. At present only 1 purchase_unit is supported. Each purchase unit establishes a contract between a payer and the payee. Each purchase unit represents either a full or partial order that the payer intends to purchase from the payee.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/purchase_unit"
+      }
+    }
+  }
+}
